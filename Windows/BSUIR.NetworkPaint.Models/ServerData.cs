@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace BSUIR.NetworkPaint.Models
 {
+	[Serializable]
 	public class ServerData
 	{
 		public string ServerName { get; set; }
