@@ -19,8 +19,7 @@ namespace BSUIR.NetworkPaint.NetworkCore
 
 		public ClientConnection(IPAddress address, int port)
 		{
-			IPEndPoint endPoint = new IPEndPoint(address, port);
-			_client = new TcpClient(endPoint);
+			_client = new TcpClient(address.ToString(), port);
 
 			_acceptThread = new Thread(Listen);
 			_acceptThread.Start();

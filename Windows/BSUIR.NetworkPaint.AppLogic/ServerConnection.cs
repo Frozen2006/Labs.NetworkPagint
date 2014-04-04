@@ -18,6 +18,11 @@ namespace BSUIR.NetworkPaint.AppLogic
 			ClientConnection connection = new ClientConnection(a.Addresses[0], 2435);
 
 			connection.SendPackage(new Models.TransferPackage());
+
+			var data = connection.GetRecivedData();
+			data = connection.GetRecivedData();
+			data = connection.GetRecivedData();
+			data = connection.GetRecivedData();
 		}
 	}
 }
