@@ -14,6 +14,10 @@ namespace BSUIR.NetworkPaint.AppLogic
 			ServerFinder finder = new ServerFinder(2431);
 
 			var a = finder.Find();
+
+			ClientConnection connection = new ClientConnection(a.Addresses[0], 2435);
+
+			connection.SendPackage(new Models.TransferPackage());
 		}
 	}
 }
