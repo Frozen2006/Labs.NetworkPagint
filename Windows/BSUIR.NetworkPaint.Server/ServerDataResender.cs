@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace BSUIR.NetworkPaint.Server
 		public ServerDataResender(int port)
 		{
 			_listner = new TcpListener(IPAddress.Any, port);
+            _listner.Start();
 			StartListen();
 		}
 
@@ -28,18 +30,50 @@ namespace BSUIR.NetworkPaint.Server
 
 		private void ResendData(IAsyncResult result)
 		{
-			var client = (TcpClient)result.AsyncState;
-			_clients.Add(client);
+            Console.WriteLine("Client connected!");
 
-			_listner.EndAcceptTcpClient(result);
-			StartListen();
+            var listner = (TcpListener)result.AsyncState;
+
+            var client = _listner.EndAcceptTcpClient(result);
+            StartListen();
+            
+			_clients.Add(client);
 
 			BinaryFormatter formatter = new BinaryFormatter();
 			var stream = client.GetStream();
 
+            TransferPackage data = null;
+            int brokedPackages = 0;
+
 			while (client.Connected)
 			{
-				var data = (TransferPackage)formatter.Deserialize(stream);
+                try
+                {
+                    data = (TransferPackage)formatter.Deserialize(stream);
+                }
+                catch(SerializationException)
+                {
+                    if (client.Connected)
+                    {
+                        Console.WriteLine("Recived broked data");
+                        brokedPackages++;
+
+                        if (brokedPackages > 10)
+                        {
+                            Console.WriteLine("Client disconnected");
+                            _clients.Remove(client);
+                            return;
+                        }
+                        continue;
+                    } 
+                    else
+                    {
+                        Console.WriteLine("Client disconnected");
+                        _clients.Remove(client);
+                        return;
+                    }
+                }
+				
 				foreach (var currentClient in _clients)
 				{
 					formatter.Serialize(currentClient.GetStream(), data);
