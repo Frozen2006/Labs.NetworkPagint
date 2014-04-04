@@ -16,7 +16,6 @@ namespace BSUIR.NetworkPaint.Server
 		private ServerData _data;
 		private int _port;
 		private UdpClient _client;
-		private UdpClient _sender;
 		private IPEndPoint _listenEndpoint;
 		private IPEndPoint _sendEndpoint;
 
@@ -30,11 +29,10 @@ namespace BSUIR.NetworkPaint.Server
 			};
 
 			_listenEndpoint = new IPEndPoint(IPAddress.Any, port+1);
-			_sendEndpoint = new IPEndPoint(IPAddress.Any, port);
+			_sendEndpoint = new IPEndPoint(IPAddress.Parse("255.255.255.255"), port);
 
 
 			_client = new UdpClient(_listenEndpoint);
-			_sender = new UdpClient(_sendEndpoint);
 
 			List<IPAddress> addresses = new List<IPAddress>();
 
@@ -66,7 +64,7 @@ namespace BSUIR.NetworkPaint.Server
 
 			var bytes = stream.GetBuffer();
 
-			_sender.Send(bytes, bytes.Length, _sendEndpoint);
+			_client.Send(bytes, bytes.Length, _sendEndpoint);
 
 			_client.EndReceive(result, ref _listenEndpoint);
 			StartListen();
