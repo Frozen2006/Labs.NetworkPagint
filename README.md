@@ -1,4 +1,6 @@
 Labs.NetworkPagint
 ==================
 
-Cross platform Network paint 
+Cross platform Network paint.
+
+In development...
