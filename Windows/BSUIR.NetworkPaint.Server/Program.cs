@@ -8,8 +8,10 @@ namespace BSUIR.NetworkPaint.Server
 {
 	class Program
 	{
+		private static FindingResponcer responcer = new FindingResponcer(2431, "Test server");
 		static void Main(string[] args)
 		{
+			Console.ReadKey();
 		}
 	}
 }

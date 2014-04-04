@@ -3,6 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSUIR.NetworkPaint.UI", "BSUIR.NetworkPaint.UI\BSUIR.NetworkPaint.UI.csproj", "{986BCDD5-7253-4C85-A206-A7022C3C59B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSUIR.NetworkPaint.NetworkCore", "BSUIR.NetworkPaint.NetworkCore\BSUIR.NetworkPaint.NetworkCore.csproj", "{5AB6CF6C-D665-4856-88C6-EAD4C9B7B815}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSUIR.NetworkPaint.AppLogic", "BSUIR.NetworkPaint.AppLogic\BSUIR.NetworkPaint.AppLogic.csproj", "{BCCC8854-29AD-4803-896B-287220041CB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSUIR.NetworkPaint.Models", "BSUIR.NetworkPaint.Models\BSUIR.NetworkPaint.Models.csproj", "{23E7CFE8-555B-4148-B7A5-3BD573DE7670}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSUIR.NetworkPaint.Server", "BSUIR.NetworkPaint.Server\BSUIR.NetworkPaint.Server.csproj", "{E316D2BC-9054-4F29-89A2-D3394696D13F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +21,22 @@ Global
 		{986BCDD5-7253-4C85-A206-A7022C3C59B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{986BCDD5-7253-4C85-A206-A7022C3C59B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{986BCDD5-7253-4C85-A206-A7022C3C59B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AB6CF6C-D665-4856-88C6-EAD4C9B7B815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AB6CF6C-D665-4856-88C6-EAD4C9B7B815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AB6CF6C-D665-4856-88C6-EAD4C9B7B815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AB6CF6C-D665-4856-88C6-EAD4C9B7B815}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCCC8854-29AD-4803-896B-287220041CB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCCC8854-29AD-4803-896B-287220041CB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCCC8854-29AD-4803-896B-287220041CB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCCC8854-29AD-4803-896B-287220041CB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23E7CFE8-555B-4148-B7A5-3BD573DE7670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23E7CFE8-555B-4148-B7A5-3BD573DE7670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23E7CFE8-555B-4148-B7A5-3BD573DE7670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23E7CFE8-555B-4148-B7A5-3BD573DE7670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E316D2BC-9054-4F29-89A2-D3394696D13F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E316D2BC-9054-4F29-89A2-D3394696D13F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E316D2BC-9054-4F29-89A2-D3394696D13F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E316D2BC-9054-4F29-89A2-D3394696D13F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
