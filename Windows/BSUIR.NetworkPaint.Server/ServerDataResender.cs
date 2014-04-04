@@ -21,15 +21,19 @@ namespace BSUIR.NetworkPaint.Server
 			StartListen();
 		}
 
-		private async void StartListen()
+		private void StartListen()
 		{
-			var client = await _listner.AcceptTcpClientAsync();
-			_clients.Add(client);
-			ResendData(client);
+			_listner.BeginAcceptTcpClient(new AsyncCallback(ResendData), _listner);
 		}
 
-		private async void ResendData(TcpClient client)
+		private void ResendData(IAsyncResult result)
 		{
+			var client = (TcpClient)result.AsyncState;
+			_clients.Add(client);
+
+			_listner.EndAcceptTcpClient(result);
+			StartListen();
+
 			BinaryFormatter formatter = new BinaryFormatter();
 			var stream = client.GetStream();
 
