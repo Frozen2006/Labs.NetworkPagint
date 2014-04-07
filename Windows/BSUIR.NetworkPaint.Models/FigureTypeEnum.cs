@@ -10,6 +10,7 @@ namespace BSUIR.NetworkPaint.Models
 	{
 		Base,
 		Point,
-		Rectangle
+		Rectangle,
+		Line
 	}
 }

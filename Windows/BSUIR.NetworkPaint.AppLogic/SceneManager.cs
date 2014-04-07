@@ -53,6 +53,10 @@ namespace BSUIR.NetworkPaint.AppLogic
 				{
 					currentTool = new RectangleConstructor(null, _graphics);
 				}
+				if (tool.Figure == FigureTypeEnum.Line)
+				{
+					currentTool = new LineConstructor(null, _graphics);
+				}
 				currentTool.Draw(tool.X, tool.Y, tool.Width, tool.Height, tool.Color);
 			}
 		}
@@ -118,6 +122,10 @@ namespace BSUIR.NetworkPaint.AppLogic
 			if (tool == FigureTypeEnum.Rectangle)
 			{
 				_currentTool = new RectangleConstructor(_connection.SendPackage, _graphics);
+			}
+			if (tool == FigureTypeEnum.Line)
+			{
+				_currentTool = new LineConstructor(null, _graphics);
 			}
 		}
 	}

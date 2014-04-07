@@ -97,6 +97,11 @@ namespace BSUIR.NetworkPaint.UI
 			_manager.ChangeTool(FigureTypeEnum.Rectangle);
 		}
 
+		private void lineRadio_CheckedChanged(object sender, EventArgs e)
+		{
+			_manager.ChangeTool(FigureTypeEnum.Line);
+		}
+
 
 	}
 }

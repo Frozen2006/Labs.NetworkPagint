@@ -39,7 +39,11 @@ namespace BSUIR.NetworkPaint.Models.ToolsConstructors
 				Color = color
 			};
 
-			_sendDataCallback(data);
+			if (_sendDataCallback != null)
+			{
+				_sendDataCallback(data);
+			}
+			
 		}
 
 		public virtual void OnButtonDown(FormClickData e)

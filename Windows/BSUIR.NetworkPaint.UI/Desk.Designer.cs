@@ -34,6 +34,7 @@
 			this.colorDisplay = new System.Windows.Forms.TextBox();
 			this.pointRadio = new System.Windows.Forms.RadioButton();
 			this.rectabgleRadio = new System.Windows.Forms.RadioButton();
+			this.lineRadio = new System.Windows.Forms.RadioButton();
 			((System.ComponentModel.ISupportInitialize)(this.paintSurface)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -79,6 +80,7 @@
 			this.pointRadio.Name = "pointRadio";
 			this.pointRadio.Size = new System.Drawing.Size(63, 24);
 			this.pointRadio.TabIndex = 5;
+			this.pointRadio.TabStop = true;
 			this.pointRadio.Text = "Point";
 			this.pointRadio.UseVisualStyleBackColor = true;
 			this.pointRadio.CheckedChanged += new System.EventHandler(this.pointRadio_CheckedChanged);
@@ -95,11 +97,24 @@
 			this.rectabgleRadio.UseVisualStyleBackColor = true;
 			this.rectabgleRadio.CheckedChanged += new System.EventHandler(this.rectabgleRadio_CheckedChanged);
 			// 
+			// lineRadio
+			// 
+			this.lineRadio.AutoSize = true;
+			this.lineRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.lineRadio.Location = new System.Drawing.Point(238, 663);
+			this.lineRadio.Name = "lineRadio";
+			this.lineRadio.Size = new System.Drawing.Size(57, 24);
+			this.lineRadio.TabIndex = 7;
+			this.lineRadio.Text = "Line";
+			this.lineRadio.UseVisualStyleBackColor = true;
+			this.lineRadio.CheckedChanged += new System.EventHandler(this.lineRadio_CheckedChanged);
+			// 
 			// Desk
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1283, 699);
+			this.Controls.Add(this.lineRadio);
 			this.Controls.Add(this.rectabgleRadio);
 			this.Controls.Add(this.pointRadio);
 			this.Controls.Add(this.colorDisplay);
@@ -123,6 +138,7 @@
 		private System.Windows.Forms.TextBox colorDisplay;
 		private System.Windows.Forms.RadioButton pointRadio;
 		private System.Windows.Forms.RadioButton rectabgleRadio;
+		private System.Windows.Forms.RadioButton lineRadio;
 	}
 }
 

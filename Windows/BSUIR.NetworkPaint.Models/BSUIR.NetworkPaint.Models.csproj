@@ -45,6 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerData.cs" />
     <Compile Include="ToolsConstructors\BaseToolConstructor.cs" />
+    <Compile Include="ToolsConstructors\LineConstructor.cs" />
     <Compile Include="ToolsConstructors\RectangleConstructor.cs" />
     <Compile Include="ToolsConstructors\PointConstructor.cs" />
     <Compile Include="TransferPackage.cs" />
