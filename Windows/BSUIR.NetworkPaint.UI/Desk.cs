@@ -11,18 +11,27 @@ using System.Windows.Forms;
 
 namespace BSUIR.NetworkPaint.UI
 {
-	public partial class Form1 : Form
+	public partial class Desk : Form
 	{
-		public Form1()
+		private SceneManager _manager;
+
+		public Desk()
 		{
 			InitializeComponent();
+
+			_manager = new SceneManager(paintSurface.CreateGraphics());
 		}
 
-		ServerConnection _connection = new ServerConnection();
+		
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			_connection.FindAServer();
+			_manager.Start();
+		}
+
+		private void Desk_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			_manager.End();
 		}
 	}
 }

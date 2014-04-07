@@ -8,6 +8,7 @@ namespace BSUIR.NetworkPaint.Models
 {
 	public enum FigureTypeEnum
 	{
+		Base,
 		Point,
 		Rectangle
 	}

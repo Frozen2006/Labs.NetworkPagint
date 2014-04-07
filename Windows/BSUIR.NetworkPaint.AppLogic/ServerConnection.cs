@@ -16,6 +16,7 @@ namespace BSUIR.NetworkPaint.AppLogic
 		private readonly ServerFinder _finder;
 		private ClientConnection _connection;
 		private IPAddress _serverAddress;
+		private Guid _currentId = Guid.NewGuid();
 
 		public ServerConnection()
 		{
@@ -43,12 +44,15 @@ namespace BSUIR.NetworkPaint.AppLogic
 
 		public void SendPackage(TransferPackage package)
 		{
+			package.ClientId = _currentId;
 			_connection.SendPackage(package);
 		}
 
 		public TransferPackage[] GetRecivedData()
 		{
-			return _connection.GetRecivedData();
+			var data = _connection.GetRecivedData();
+
+			return data.Where(m => m.ClientId != _currentId).ToArray();
 		}
 
 		public void Disconnect()
@@ -56,6 +60,7 @@ namespace BSUIR.NetworkPaint.AppLogic
 			if (_connection != null)
 			{
 				_connection.Disconnect();
+				_isDisposed = true;
 			}
 			else
 			{
