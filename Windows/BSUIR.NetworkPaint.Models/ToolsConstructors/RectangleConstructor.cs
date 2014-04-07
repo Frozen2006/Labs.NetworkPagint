@@ -45,6 +45,11 @@ namespace BSUIR.NetworkPaint.Models.ToolsConstructors
 
 		public override void OnButtonUp(FormClickData e)
 		{
+			if (e.X == 0 && e.Y == 0)
+			{
+				_isPaint = false;
+				return;
+			}
 			Draw(_startX, _startY, e.X - _startX, e.Y - _startY, e.CurrentColor);
 			Send(_startX, _startY, e.X - _startX, e.Y - _startY, e.CurrentColor);
 			_isPaint = false;

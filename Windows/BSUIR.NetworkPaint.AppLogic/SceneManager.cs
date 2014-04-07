@@ -51,7 +51,7 @@ namespace BSUIR.NetworkPaint.AppLogic
 				}
 				if (tool.Figure == FigureTypeEnum.Rectangle)
 				{
-					_currentTool = new RectangleConstructor(null, _graphics);
+					currentTool = new RectangleConstructor(null, _graphics);
 				}
 				currentTool.Draw(tool.X, tool.Y, tool.Width, tool.Height, tool.Color);
 			}
