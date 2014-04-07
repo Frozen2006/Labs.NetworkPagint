@@ -50,6 +50,10 @@
 			this.Text = "Interactive desk";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Desk_FormClosing);
 			this.Load += new System.EventHandler(this.Form1_Load);
+			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Desk_MouseDown);
+			this.MouseLeave += new System.EventHandler(this.Desk_MouseLeave);
+			this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Desk_MouseMove);
+			this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Desk_MouseUp);
 			((System.ComponentModel.ISupportInitialize)(this.paintSurface)).EndInit();
 			this.ResumeLayout(false);
 
