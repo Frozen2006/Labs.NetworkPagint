@@ -76,5 +76,14 @@ namespace BSUIR.NetworkPaint.UI
 		{
 			_manager.OnMouseMove(e.X, e.Y);
 		}
+
+		private void colorDisplay_Click(object sender, EventArgs e)
+		{
+			if (colorDialog1.ShowDialog() == DialogResult.OK)
+			{
+				colorDisplay.BackColor = colorDialog1.Color;
+				_manager.ChangeCurrentColor(colorDialog1.Color);
+			}
+		}
 	}
 }

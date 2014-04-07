@@ -99,5 +99,10 @@ namespace BSUIR.NetworkPaint.AppLogic
 
 			_currentTool.OnButtonUp(data);
 		}
+
+		public void ChangeCurrentColor(Color color)
+		{
+			_currentColor = color;
+		}
 	}
 }

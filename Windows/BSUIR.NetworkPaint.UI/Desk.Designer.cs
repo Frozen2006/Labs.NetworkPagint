@@ -29,6 +29,9 @@
 		private void InitializeComponent()
 		{
 			this.paintSurface = new System.Windows.Forms.PictureBox();
+			this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+			this.label3 = new System.Windows.Forms.Label();
+			this.colorDisplay = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.paintSurface)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -44,11 +47,34 @@
 			this.paintSurface.MouseMove += new System.Windows.Forms.MouseEventHandler(this.paintSurface_MouseMove);
 			this.paintSurface.MouseUp += new System.Windows.Forms.MouseEventHandler(this.paintSurface_MouseUp);
 			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label3.Location = new System.Drawing.Point(1096, 663);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(86, 16);
+			this.label3.TabIndex = 3;
+			this.label3.Text = "Current color:";
+			// 
+			// colorDisplay
+			// 
+			this.colorDisplay.BackColor = System.Drawing.Color.Black;
+			this.colorDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.colorDisplay.Location = new System.Drawing.Point(1188, 659);
+			this.colorDisplay.Name = "colorDisplay";
+			this.colorDisplay.ReadOnly = true;
+			this.colorDisplay.Size = new System.Drawing.Size(83, 22);
+			this.colorDisplay.TabIndex = 4;
+			this.colorDisplay.Click += new System.EventHandler(this.colorDisplay_Click);
+			// 
 			// Desk
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1283, 699);
+			this.Controls.Add(this.colorDisplay);
+			this.Controls.Add(this.label3);
 			this.Controls.Add(this.paintSurface);
 			this.Name = "Desk";
 			this.Text = "Interactive desk";
@@ -56,12 +82,16 @@
 			this.Load += new System.EventHandler(this.Form1_Load);
 			((System.ComponentModel.ISupportInitialize)(this.paintSurface)).EndInit();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
 		#endregion
 
 		private System.Windows.Forms.PictureBox paintSurface;
+		private System.Windows.Forms.ColorDialog colorDialog1;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.TextBox colorDisplay;
 	}
 }
 
