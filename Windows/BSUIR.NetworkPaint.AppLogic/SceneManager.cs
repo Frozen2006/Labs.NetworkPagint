@@ -20,6 +20,8 @@ namespace BSUIR.NetworkPaint.AppLogic
 
 		private const int UpdatePeriod = 10;
 
+		public string ServerName { get; set; }
+
 		public SceneManager(Graphics graphics)
 		{
 			_graphics = graphics;
@@ -29,7 +31,16 @@ namespace BSUIR.NetworkPaint.AppLogic
 
 		private void TimerProc(object obj)
 		{
-			var data = _connection.GetRecivedData();
+			TransferPackage[] data = new TransferPackage[0];
+
+			try
+			{
+				data = _connection.GetRecivedData();
+			}
+			catch (Exception)
+			{
+				_timer.Dispose();
+			}
 
 			foreach (var tool in data)
 			{
@@ -45,6 +56,7 @@ namespace BSUIR.NetworkPaint.AppLogic
 		public void Start()
 		{
 			_connection.Connect();
+			ServerName = _connection.GetServerName();
 		}
 
 		public void End()

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
@@ -16,6 +17,7 @@ namespace BSUIR.NetworkPaint.NetworkCore
 		private TcpClient _client;
 		private Thread _acceptThread;
 		private List<TransferPackage> _reciveBuffer = new List<TransferPackage>();
+		private bool _isConnectionClosed;
 
 		public ClientConnection(IPAddress address, int port)
 		{
@@ -32,7 +34,15 @@ namespace BSUIR.NetworkPaint.NetworkCore
 			{
 				BinaryFormatter formatter = new BinaryFormatter();
 
-				var recivedData = (TransferPackage)formatter.Deserialize(stream);
+				TransferPackage recivedData = new TransferPackage();
+				try
+				{
+					recivedData = (TransferPackage)formatter.Deserialize(stream);
+				}
+				catch (SerializationException e)
+				{
+					_isConnectionClosed = true;
+				}
 
 				lock (_reciveBuffer)
 				{
@@ -53,6 +63,11 @@ namespace BSUIR.NetworkPaint.NetworkCore
 
 		public TransferPackage[] GetRecivedData()
 		{
+			if (_isConnectionClosed)
+			{
+				throw new Exception("Connection closed");
+			}
+
 			TransferPackage[] data;
 			lock (_reciveBuffer)
 			{

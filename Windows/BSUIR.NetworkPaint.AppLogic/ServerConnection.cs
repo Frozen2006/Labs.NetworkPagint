@@ -16,6 +16,7 @@ namespace BSUIR.NetworkPaint.AppLogic
 		private readonly ServerFinder _finder;
 		private ClientConnection _connection;
 		private IPAddress _serverAddress;
+		private string _serverName;
 		private Guid _currentId = Guid.NewGuid();
 
 		public ServerConnection()
@@ -38,8 +39,14 @@ namespace BSUIR.NetworkPaint.AppLogic
 				throw new TimeoutException("Server wasn't finded in requested time");
 			}
 			_serverAddress = recivedData.Addresses.First();
+			_serverName = recivedData.ServerName;
 
 			_connection = new ClientConnection(_serverAddress, _exchangePort);
+		}
+
+		public string GetServerName()
+		{
+			return _serverName;
 		}
 
 		public void SendPackage(TransferPackage package)
