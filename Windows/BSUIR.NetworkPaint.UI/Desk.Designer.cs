@@ -32,6 +32,8 @@
 			this.colorDialog1 = new System.Windows.Forms.ColorDialog();
 			this.label3 = new System.Windows.Forms.Label();
 			this.colorDisplay = new System.Windows.Forms.TextBox();
+			this.pointRadio = new System.Windows.Forms.RadioButton();
+			this.rectabgleRadio = new System.Windows.Forms.RadioButton();
 			((System.ComponentModel.ISupportInitialize)(this.paintSurface)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -68,11 +70,38 @@
 			this.colorDisplay.TabIndex = 4;
 			this.colorDisplay.Click += new System.EventHandler(this.colorDisplay_Click);
 			// 
+			// pointRadio
+			// 
+			this.pointRadio.AutoSize = true;
+			this.pointRadio.Checked = true;
+			this.pointRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.pointRadio.Location = new System.Drawing.Point(35, 661);
+			this.pointRadio.Name = "pointRadio";
+			this.pointRadio.Size = new System.Drawing.Size(63, 24);
+			this.pointRadio.TabIndex = 5;
+			this.pointRadio.Text = "Point";
+			this.pointRadio.UseVisualStyleBackColor = true;
+			this.pointRadio.CheckedChanged += new System.EventHandler(this.pointRadio_CheckedChanged);
+			// 
+			// rectabgleRadio
+			// 
+			this.rectabgleRadio.AutoSize = true;
+			this.rectabgleRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.rectabgleRadio.Location = new System.Drawing.Point(132, 661);
+			this.rectabgleRadio.Name = "rectabgleRadio";
+			this.rectabgleRadio.Size = new System.Drawing.Size(100, 24);
+			this.rectabgleRadio.TabIndex = 6;
+			this.rectabgleRadio.Text = "Rectangle";
+			this.rectabgleRadio.UseVisualStyleBackColor = true;
+			this.rectabgleRadio.CheckedChanged += new System.EventHandler(this.rectabgleRadio_CheckedChanged);
+			// 
 			// Desk
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1283, 699);
+			this.Controls.Add(this.rectabgleRadio);
+			this.Controls.Add(this.pointRadio);
 			this.Controls.Add(this.colorDisplay);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.paintSurface);
@@ -92,6 +121,8 @@
 		private System.Windows.Forms.ColorDialog colorDialog1;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox colorDisplay;
+		private System.Windows.Forms.RadioButton pointRadio;
+		private System.Windows.Forms.RadioButton rectabgleRadio;
 	}
 }
 

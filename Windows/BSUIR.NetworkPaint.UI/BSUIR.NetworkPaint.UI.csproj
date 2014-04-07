@@ -91,6 +91,10 @@
       <Project>{bccc8854-29ad-4803-896b-287220041cb2}</Project>
       <Name>BSUIR.NetworkPaint.AppLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BSUIR.NetworkPaint.Models\BSUIR.NetworkPaint.Models.csproj">
+      <Project>{23e7cfe8-555b-4148-b7a5-3bd573de7670}</Project>
+      <Name>BSUIR.NetworkPaint.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

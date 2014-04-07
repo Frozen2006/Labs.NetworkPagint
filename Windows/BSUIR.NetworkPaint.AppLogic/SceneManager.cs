@@ -49,6 +49,10 @@ namespace BSUIR.NetworkPaint.AppLogic
 				{
 					currentTool = new PointConstructor(null, _graphics);
 				}
+				if (tool.Figure == FigureTypeEnum.Rectangle)
+				{
+					_currentTool = new RectangleConstructor(null, _graphics);
+				}
 				currentTool.Draw(tool.X, tool.Y, tool.Width, tool.Height, tool.Color);
 			}
 		}
@@ -103,6 +107,18 @@ namespace BSUIR.NetworkPaint.AppLogic
 		public void ChangeCurrentColor(Color color)
 		{
 			_currentColor = color;
+		}
+
+		public void ChangeTool(FigureTypeEnum tool)
+		{
+			if (tool == FigureTypeEnum.Point)
+			{
+				_currentTool = new PointConstructor(_connection.SendPackage, _graphics);
+			}
+			if (tool == FigureTypeEnum.Rectangle)
+			{
+				_currentTool = new RectangleConstructor(_connection.SendPackage, _graphics);
+			}
 		}
 	}
 }

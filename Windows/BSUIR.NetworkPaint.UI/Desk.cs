@@ -1,4 +1,5 @@
 ﻿using BSUIR.NetworkPaint.AppLogic;
+using BSUIR.NetworkPaint.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -85,5 +86,17 @@ namespace BSUIR.NetworkPaint.UI
 				_manager.ChangeCurrentColor(colorDialog1.Color);
 			}
 		}
+
+		private void pointRadio_CheckedChanged(object sender, EventArgs e)
+		{
+			_manager.ChangeTool(FigureTypeEnum.Point);
+		}
+
+		private void rectabgleRadio_CheckedChanged(object sender, EventArgs e)
+		{
+			_manager.ChangeTool(FigureTypeEnum.Rectangle);
+		}
+
+
 	}
 }
