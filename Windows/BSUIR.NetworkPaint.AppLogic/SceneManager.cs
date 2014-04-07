@@ -125,7 +125,7 @@ namespace BSUIR.NetworkPaint.AppLogic
 			}
 			if (tool == FigureTypeEnum.Line)
 			{
-				_currentTool = new LineConstructor(null, _graphics);
+				_currentTool = new LineConstructor(_connection.SendPackage, _graphics);
 			}
 		}
 	}
