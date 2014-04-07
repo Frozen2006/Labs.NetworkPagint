@@ -41,6 +41,16 @@ namespace BSUIR.NetworkPaint.NetworkCore
 			}
 		}
 
+		public bool IsConnected()
+		{
+			return _client.Connected;
+		}
+
+		public void Disconnect()
+		{
+			_client.Close();
+		}
+
 		public TransferPackage[] GetRecivedData()
 		{
 			TransferPackage[] data;
