@@ -34,24 +34,24 @@ namespace BSUIR.NetworkPaint.UI
 			_manager.End();
 		}
 
-		private void Desk_MouseDown(object sender, MouseEventArgs e)
-		{
-			_manager.OnButtonDown(e.X, e.Y);
-		}
-
-		private void Desk_MouseMove(object sender, MouseEventArgs e)
-		{
-			_manager.OnMouseMove(e.X, e.Y);
-		}
-
-		private void Desk_MouseUp(object sender, MouseEventArgs e)
+		private void paintSurface_MouseUp(object sender, MouseEventArgs e)
 		{
 			_manager.OnButtonUp(e.X, e.Y);
 		}
 
-		private void Desk_MouseLeave(object sender, EventArgs e)
+		private void paintSurface_MouseDown(object sender, MouseEventArgs e)
+		{
+			_manager.OnButtonDown(e.X, e.Y);
+		}
+
+		private void paintSurface_MouseLeave(object sender, EventArgs e)
 		{
 			_manager.OnButtonUp(0, 0);
+		}
+
+		private void paintSurface_MouseMove(object sender, MouseEventArgs e)
+		{
+			_manager.OnMouseMove(e.X, e.Y);
 		}
 	}
 }

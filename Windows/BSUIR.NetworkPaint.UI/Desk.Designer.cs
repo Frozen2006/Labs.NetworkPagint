@@ -39,6 +39,10 @@
 			this.paintSurface.Size = new System.Drawing.Size(1280, 640);
 			this.paintSurface.TabIndex = 0;
 			this.paintSurface.TabStop = false;
+			this.paintSurface.MouseDown += new System.Windows.Forms.MouseEventHandler(this.paintSurface_MouseDown);
+			this.paintSurface.MouseLeave += new System.EventHandler(this.paintSurface_MouseLeave);
+			this.paintSurface.MouseMove += new System.Windows.Forms.MouseEventHandler(this.paintSurface_MouseMove);
+			this.paintSurface.MouseUp += new System.Windows.Forms.MouseEventHandler(this.paintSurface_MouseUp);
 			// 
 			// Desk
 			// 
@@ -50,10 +54,6 @@
 			this.Text = "Interactive desk";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Desk_FormClosing);
 			this.Load += new System.EventHandler(this.Form1_Load);
-			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Desk_MouseDown);
-			this.MouseLeave += new System.EventHandler(this.Desk_MouseLeave);
-			this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Desk_MouseMove);
-			this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Desk_MouseUp);
 			((System.ComponentModel.ISupportInitialize)(this.paintSurface)).EndInit();
 			this.ResumeLayout(false);
 
