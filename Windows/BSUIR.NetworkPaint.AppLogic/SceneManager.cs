@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BSUIR.NetworkPaint.AppLogic
@@ -15,11 +16,30 @@ namespace BSUIR.NetworkPaint.AppLogic
 		private BaseToolConstructor _currentTool;
 		private Graphics _graphics;
 		private Color _currentColor = Color.Black;
+		private Timer _timer;
+
+		private const int UpdatePeriod = 10;
 
 		public SceneManager(Graphics graphics)
 		{
 			_graphics = graphics;
 			_currentTool = new PointConstructor(_connection.SendPackage, _graphics);
+			_timer = new Timer(TimerProc, null, 200, UpdatePeriod);
+		}
+
+		private void TimerProc(object obj)
+		{
+			var data = _connection.GetRecivedData();
+
+			foreach (var tool in data)
+			{
+				BaseToolConstructor currentTool = new PointConstructor(null, _graphics);
+				if (tool.Figure == FigureTypeEnum.Point)
+				{
+					currentTool = new PointConstructor(null, _graphics);
+				}
+				currentTool.Draw(tool.X, tool.Y, tool.Width, tool.Height, tool.Color);
+			}
 		}
 
 		public void Start()
