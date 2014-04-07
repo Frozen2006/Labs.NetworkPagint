@@ -50,6 +50,10 @@ namespace BSUIR.NetworkPaint.AppLogic
 
 		public TransferPackage[] GetRecivedData()
 		{
+			if (_connection == null)
+			{
+				return new TransferPackage[0];
+			}
 			var data = _connection.GetRecivedData();
 
 			return data.Where(m => m.ClientId != _currentId).ToArray();
