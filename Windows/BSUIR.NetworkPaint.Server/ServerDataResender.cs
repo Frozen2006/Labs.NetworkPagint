@@ -8,6 +8,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace BSUIR.NetworkPaint.Server
 {
@@ -39,7 +40,7 @@ namespace BSUIR.NetworkPaint.Server
             
 			_clients.Add(client);
 
-			BinaryFormatter formatter = new BinaryFormatter();
+            XmlSerializer serializer = new XmlSerializer(typeof(TransferPackage));
 			var stream = client.GetStream();
 
             TransferPackage data = null;
@@ -49,7 +50,7 @@ namespace BSUIR.NetworkPaint.Server
 			{
                 try
                 {
-                    data = (TransferPackage)formatter.Deserialize(stream);
+                    data = (TransferPackage)serializer.Deserialize(stream);
                 }
                 catch(SerializationException)
                 {
@@ -76,7 +77,7 @@ namespace BSUIR.NetworkPaint.Server
 				
 				foreach (var currentClient in _clients)
 				{
-					formatter.Serialize(currentClient.GetStream(), data);
+					serializer.Serialize(currentClient.GetStream(), data);
 				}
 			}
 		}

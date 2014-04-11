@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace BSUIR.NetworkPaint.NetworkCore
 {
@@ -66,7 +67,7 @@ namespace BSUIR.NetworkPaint.NetworkCore
 			if (data.Length > 0)
 			{
 				MemoryStream stream = new MemoryStream(data);
-				BinaryFormatter formatter = new BinaryFormatter();
+                XmlSerializer formatter = new XmlSerializer(typeof(ServerData));
 				stream.Seek(0, SeekOrigin.Begin);
 
 				_data = (ServerData)formatter.Deserialize(stream);

@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace BSUIR.NetworkPaint.Server
 {
@@ -59,8 +60,9 @@ namespace BSUIR.NetworkPaint.Server
 		public void ReciveCallback(IAsyncResult result)
 		{
 			MemoryStream stream = new MemoryStream();
-			BinaryFormatter formatter = new BinaryFormatter();
-			formatter.Serialize(stream, _data);
+            XmlSerializer serializer = new XmlSerializer(typeof(ServerData));
+
+			serializer.Serialize(stream, _data);
 
 			var bytes = stream.GetBuffer();
 

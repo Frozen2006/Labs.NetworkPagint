@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace BSUIR.NetworkPaint.NetworkCore
 {
@@ -32,12 +33,12 @@ namespace BSUIR.NetworkPaint.NetworkCore
 			NetworkStream stream = _client.GetStream();
 			while (_client.Connected)
 			{
-				BinaryFormatter formatter = new BinaryFormatter();
+                XmlSerializer serializer = new XmlSerializer(typeof(TransferPackage));
 
 				TransferPackage recivedData = new TransferPackage();
 				try
 				{
-					recivedData = (TransferPackage)formatter.Deserialize(stream);
+                    recivedData = (TransferPackage)serializer.Deserialize(stream);
 				}
 				catch (SerializationException e)
 				{
@@ -81,7 +82,7 @@ namespace BSUIR.NetworkPaint.NetworkCore
 		{
 			var stream = _client.GetStream();
 
-			BinaryFormatter formatter = new BinaryFormatter();
+			XmlSerializer formatter = new XmlSerializer(typeof(TransferPackage));
 
 			formatter.Serialize(stream, package);
 		}

@@ -29,6 +29,7 @@ namespace BSUIR.NetworkPaint.Models.ToolsConstructors
 
 		public void Send(int x, int y, int width, int height, Color color)
 		{
+            
 			var data = new TransferPackage()
 			{
 				Figure = _type,
@@ -36,7 +37,9 @@ namespace BSUIR.NetworkPaint.Models.ToolsConstructors
 				Width = width,
 				X = x,
 				Y = y,
-				Color = color
+				ColorR = color.R,
+                ColorG = color.G,
+                ColorB = color.B
 			};
 
 			if (_sendDataCallback != null)

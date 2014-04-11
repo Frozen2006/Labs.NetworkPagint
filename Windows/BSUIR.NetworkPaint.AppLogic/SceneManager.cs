@@ -57,7 +57,8 @@ namespace BSUIR.NetworkPaint.AppLogic
 				{
 					currentTool = new LineConstructor(null, _graphics);
 				}
-				currentTool.Draw(tool.X, tool.Y, tool.Width, tool.Height, tool.Color);
+                var color = Color.FromArgb(tool.ColorR, tool.ColorG, tool.ColorB);
+				currentTool.Draw(tool.X, tool.Y, tool.Width, tool.Height, color);
 			}
 		}
 

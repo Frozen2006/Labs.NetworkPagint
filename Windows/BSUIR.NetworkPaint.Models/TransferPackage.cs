@@ -16,6 +16,8 @@ namespace BSUIR.NetworkPaint.Models
 		public int Y { get; set; }
 		public int Width { get; set; }
 		public int Height { get; set; }
-		public Color Color { get; set; }
+		public int ColorR { get; set; }
+        public int ColorG { get; set; }
+        public int ColorB { get; set; }
 	}
 }
