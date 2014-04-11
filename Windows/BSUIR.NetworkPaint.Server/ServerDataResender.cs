@@ -79,6 +79,7 @@ namespace BSUIR.NetworkPaint.Server
                         return;
                     }
                 }
+                
 				
 				foreach (var currentClient in _clients)
 				{
