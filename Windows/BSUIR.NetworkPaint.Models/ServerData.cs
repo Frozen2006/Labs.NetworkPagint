@@ -11,6 +11,6 @@ namespace BSUIR.NetworkPaint.Models
 	public class ServerData
 	{
 		public string ServerName { get; set; }
-		public IPAddress[] Addresses { get; set; }
+		public string[] Addresses { get; set; }
 	}
 }

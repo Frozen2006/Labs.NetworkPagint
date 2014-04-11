@@ -46,7 +46,7 @@ namespace BSUIR.NetworkPaint.Server
 				}
 			}
 
-			_data.Addresses = addresses.ToArray();
+            _data.Addresses = addresses.Select(m => m.ToString()).ToArray();
 
 			StartListen();
 		}

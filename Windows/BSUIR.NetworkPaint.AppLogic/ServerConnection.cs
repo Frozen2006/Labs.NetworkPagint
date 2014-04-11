@@ -38,7 +38,8 @@ namespace BSUIR.NetworkPaint.AppLogic
 			{
 				throw new TimeoutException("Server wasn't finded in requested time");
 			}
-			_serverAddress = recivedData.Addresses.First();
+
+            _serverAddress = IPAddress.Parse(recivedData.Addresses.First());
 			_serverName = recivedData.ServerName;
 
 			_connection = new ClientConnection(_serverAddress, _exchangePort);
