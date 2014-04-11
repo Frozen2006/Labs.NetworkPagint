@@ -1,6 +1,7 @@
 ﻿using BSUIR.NetworkPaint.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -8,6 +9,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace BSUIR.NetworkPaint.Server
@@ -40,9 +42,11 @@ namespace BSUIR.NetworkPaint.Server
             
 			_clients.Add(client);
 
-            XmlSerializer serializer = new XmlSerializer(typeof(TransferPackage));
+            BinaryFormatter formatter = new BinaryFormatter();
+
 			var stream = client.GetStream();
 
+            
             TransferPackage data = null;
             int brokedPackages = 0;
 
@@ -50,7 +54,8 @@ namespace BSUIR.NetworkPaint.Server
 			{
                 try
                 {
-                    data = (TransferPackage)serializer.Deserialize(stream);
+                    var incomingData = (string)formatter.Deserialize(stream);
+                    data = CustomXmlSerializer.Deserialize<TransferPackage>(incomingData);
                 }
                 catch(SerializationException)
                 {
@@ -77,7 +82,8 @@ namespace BSUIR.NetworkPaint.Server
 				
 				foreach (var currentClient in _clients)
 				{
-					serializer.Serialize(currentClient.GetStream(), data);
+                    var outData = CustomXmlSerializer.Serialize<TransferPackage>(data);
+                    formatter.Serialize(currentClient.GetStream(), outData);
 				}
 			}
 		}

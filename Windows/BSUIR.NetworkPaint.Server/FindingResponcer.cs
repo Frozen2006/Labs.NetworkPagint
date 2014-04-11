@@ -60,9 +60,12 @@ namespace BSUIR.NetworkPaint.Server
 		public void ReciveCallback(IAsyncResult result)
 		{
 			MemoryStream stream = new MemoryStream();
-            XmlSerializer serializer = new XmlSerializer(typeof(ServerData));
 
-			serializer.Serialize(stream, _data);
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            var dataToSend = CustomXmlSerializer.Serialize<ServerData>(_data);
+
+            formatter.Serialize(stream, dataToSend);
 
 			var bytes = stream.GetBuffer();
 

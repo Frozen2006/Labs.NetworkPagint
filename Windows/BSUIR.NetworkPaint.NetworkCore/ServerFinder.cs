@@ -67,10 +67,15 @@ namespace BSUIR.NetworkPaint.NetworkCore
 			if (data.Length > 0)
 			{
 				MemoryStream stream = new MemoryStream(data);
-                XmlSerializer formatter = new XmlSerializer(typeof(ServerData));
+                //XmlSerializer formatter = new XmlSerializer(typeof(ServerData));
+
+                BinaryFormatter formatter = new BinaryFormatter();
+
 				stream.Seek(0, SeekOrigin.Begin);
 
-				_data = (ServerData)formatter.Deserialize(stream);
+                var recivedData = (string)formatter.Deserialize(stream);
+
+                _data = CustomXmlSerializer.Deserialize<ServerData>(recivedData);
 
 				_client.EndReceive(result, ref _endpoint);
 

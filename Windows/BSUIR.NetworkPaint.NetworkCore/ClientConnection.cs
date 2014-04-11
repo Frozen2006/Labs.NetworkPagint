@@ -33,12 +33,15 @@ namespace BSUIR.NetworkPaint.NetworkCore
 			NetworkStream stream = _client.GetStream();
 			while (_client.Connected)
 			{
-                XmlSerializer serializer = new XmlSerializer(typeof(TransferPackage));
+                //XmlSerializer serializer = new XmlSerializer(typeof(TransferPackage));
+                BinaryFormatter formatter = new BinaryFormatter();
+
 
 				TransferPackage recivedData = new TransferPackage();
 				try
 				{
-                    recivedData = (TransferPackage)serializer.Deserialize(stream);
+                    var incomingData = (string)formatter.Deserialize(stream);
+                    recivedData = CustomXmlSerializer.Deserialize<TransferPackage>(incomingData);
 				}
 				catch (SerializationException e)
 				{
@@ -82,9 +85,11 @@ namespace BSUIR.NetworkPaint.NetworkCore
 		{
 			var stream = _client.GetStream();
 
-			XmlSerializer formatter = new XmlSerializer(typeof(TransferPackage));
+            BinaryFormatter formatter = new BinaryFormatter();
 
-			formatter.Serialize(stream, package);
+            var data = CustomXmlSerializer.Serialize<TransferPackage>(package);
+
+			formatter.Serialize(stream, data);
 		}
 	}
 }

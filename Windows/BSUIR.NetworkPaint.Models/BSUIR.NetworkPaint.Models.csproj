@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomXmlSerializer.cs" />
     <Compile Include="FigureTypeEnum.cs" />
     <Compile Include="FormClickData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
