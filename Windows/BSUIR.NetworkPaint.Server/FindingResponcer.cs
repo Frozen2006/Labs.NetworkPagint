@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
@@ -19,6 +20,9 @@ namespace BSUIR.NetworkPaint.Server
 		private UdpClient _client;
 		private IPEndPoint _listenEndpoint;
 		private IPEndPoint _sendEndpoint;
+        private Socket _socket;
+        private bool _isActive = true;
+        Thread _listenThread;
 
 		public FindingResponcer(int port, string serverName)
 		{
@@ -33,7 +37,7 @@ namespace BSUIR.NetworkPaint.Server
 			_sendEndpoint = new IPEndPoint(IPAddress.Parse("255.255.255.255"), port);
 
 
-			_client = new UdpClient(_listenEndpoint);
+			//_client = new UdpClient(_listenEndpoint);
 
 			List<IPAddress> addresses = new List<IPAddress>();
 
@@ -52,16 +56,34 @@ namespace BSUIR.NetworkPaint.Server
 
             _data.Addresses = addresses.Select(m => m.ToString()).ToArray();
 
+            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            _socket.EnableBroadcast = true;
+            _socket.Bind(_listenEndpoint);
+
 			StartListen();
 		}
 
 
 		public void StartListen()
 		{
-			_client.BeginReceive(new AsyncCallback(ReciveCallback), _client);
+            _listenThread = new Thread(() => ListenCycle());
+            _listenThread.Start();
 		}
 
-		public void ReciveCallback(IAsyncResult result)
+        public void ListenCycle()
+        {
+            while (_isActive)
+            {
+                byte[] buffer = new byte[8192];
+                _socket.Receive(buffer); //this is a blicking operation. It will be ended only when request was recived
+
+                ReciveCallback(_socket);
+                //Thread sendThread = new Thread(() => ReciveCallback(_socket)); //start new thread to resend server data
+                //sendThread.Start();
+            }
+        }
+
+		private void ReciveCallback(Socket socket)
 		{
             Console.WriteLine("Tacked UDP package");
 			MemoryStream stream = new MemoryStream();
@@ -74,10 +96,7 @@ namespace BSUIR.NetworkPaint.Server
 
 			var bytes = stream.GetBuffer();
 
-			_client.Send(bytes, bytes.Length, _sendEndpoint);
-
-			_client.EndReceive(result, ref _listenEndpoint);
-			StartListen();
+            socket.SendTo(bytes, _sendEndpoint);
 		}
 	}
 }

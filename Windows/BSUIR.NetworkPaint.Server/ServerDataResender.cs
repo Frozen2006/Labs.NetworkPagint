@@ -17,7 +17,6 @@ namespace BSUIR.NetworkPaint.Server
 {
 	public class ServerDataResender
 	{
-		private TcpListener _listner;
 		private List<Socket> _clients = new List<Socket>();
         private Socket _socket;
         private EndPoint endPoint;
