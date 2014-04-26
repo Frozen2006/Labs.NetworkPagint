@@ -15,14 +15,21 @@ namespace BSUIR.NetworkPaint.NetworkCore
 {
 	public class ClientConnection
 	{
-		private TcpClient _client;
 		private Thread _acceptThread;
 		private List<TransferPackage> _reciveBuffer = new List<TransferPackage>();
 		private bool _isConnectionClosed;
+        private Socket _socket;
+        private IPEndPoint _endpoint;
+        private NetworkStream _stream;
 
 		public ClientConnection(IPAddress address, int port)
 		{
-			_client = new TcpClient(address.ToString(), port);
+            _endpoint = new IPEndPoint(address, port);
+
+            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            _socket.Connect(_endpoint);
+
+            _stream = new NetworkStream(_socket);
 
 			_acceptThread = new Thread(Listen);
 			_acceptThread.Start();
@@ -30,8 +37,8 @@ namespace BSUIR.NetworkPaint.NetworkCore
 
 		private void Listen()
 		{
-			NetworkStream stream = _client.GetStream();
-			while (_client.Connected)
+            NetworkStream stream = _stream;
+			while (_socket.Connected)
 			{
                 //XmlSerializer serializer = new XmlSerializer(typeof(TransferPackage));
                 BinaryFormatter formatter = new BinaryFormatter();
@@ -47,6 +54,10 @@ namespace BSUIR.NetworkPaint.NetworkCore
 				{
 					_isConnectionClosed = true;
 				}
+                catch(DecoderFallbackException e)
+                {
+
+                }
 
 				lock (_reciveBuffer)
 				{
@@ -57,12 +68,13 @@ namespace BSUIR.NetworkPaint.NetworkCore
 
 		public bool IsConnected()
 		{
-			return _client.Connected;
+			return _socket.Connected;
 		}
 
 		public void Disconnect()
 		{
-			_client.Close();
+            _socket.Disconnect(true);
+			_socket.Close();
 		}
 
 		public TransferPackage[] GetRecivedData()
@@ -83,7 +95,7 @@ namespace BSUIR.NetworkPaint.NetworkCore
 
 		public void SendPackage(TransferPackage package)
 		{
-			var stream = _client.GetStream();
+            var stream = _stream;
 
             BinaryFormatter formatter = new BinaryFormatter();
 

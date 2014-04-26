@@ -33,15 +33,17 @@ namespace BSUIR.NetworkPaint.AppLogic
 
 		public void Connect()
 		{
-			var recivedData = _finder.Find();
-			if (recivedData == null)
-			{
-				throw new TimeoutException("Server wasn't finded in requested time");
-			}
-
+			//var recivedData = _finder.Find();
+			//if (recivedData == null)
+			//{
+			//	throw new TimeoutException("Server wasn't finded in requested time");
+			//}
+            /*
             _serverAddress = IPAddress.Parse(recivedData.Addresses.First());
 			_serverName = recivedData.ServerName;
-
+            */
+            _serverAddress = IPAddress.Parse("192.168.1.210");
+            _serverName = "tt";
 			_connection = new ClientConnection(_serverAddress, _exchangePort);
 		}
 

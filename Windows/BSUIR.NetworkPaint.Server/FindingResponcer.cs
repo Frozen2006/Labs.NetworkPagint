@@ -42,6 +42,10 @@ namespace BSUIR.NetworkPaint.Server
 			{
 				if (ip.AddressFamily == AddressFamily.InterNetwork)
 				{
+                    if (ip.Address == IPAddress.Parse("192.168.173.1").Address)
+                    {
+                        continue;
+                    }
 					addresses.Add(ip);
 				}
 			}
@@ -59,6 +63,7 @@ namespace BSUIR.NetworkPaint.Server
 
 		public void ReciveCallback(IAsyncResult result)
 		{
+            Console.WriteLine("Tacked UDP package");
 			MemoryStream stream = new MemoryStream();
 
             BinaryFormatter formatter = new BinaryFormatter();

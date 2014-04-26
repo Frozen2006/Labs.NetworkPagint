@@ -16,7 +16,7 @@ namespace BSUIR.NetworkPaint.NetworkCore
 	public class ServerFinder
 	{
 		private const int MaxWaitTime = 60;
-		private UdpClient _client;
+        private Socket _socket;
 		private IPEndPoint _endpoint;
 		private IPEndPoint _sendEndpoint;
 		private volatile bool _isDataAccepted;
@@ -26,19 +26,34 @@ namespace BSUIR.NetworkPaint.NetworkCore
 		{
 			_endpoint = new IPEndPoint(IPAddress.Any, port);
 			_sendEndpoint = new IPEndPoint(IPAddress.Parse("255.255.255.255"), port+1);
-			_client = new UdpClient(_endpoint);
+            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+
+            _socket.SetSocketOption(SocketOptionLevel.Udp, SocketOptionName.NoDelay, 1);
+     _socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1); 
+            _socket.Bind(_endpoint);
+
+            //_socket.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption(IPAddress.Parse("255.255.255.255"), IPAddress.Any));
+    // May want to set this:
+    _socket.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.MulticastTimeToLive, 0); // only LAN
+
 		}
 
 		public ServerData Find()
 		{
-			_client.BeginReceive(new AsyncCallback(ReciveCallback), _client);
-
 			var startTime = DateTime.Now;
+
+            Thread q = new Thread(() => ReciveData());
+            q.Start();
+           // ReciveData();
 
 			while( (!_isDataAccepted) && ( (DateTime.Now - startTime).Seconds < MaxWaitTime ) )
 			{
-				_client.Send(new byte[0], 0, _sendEndpoint);
-				Thread.Sleep(500);
+                SocketAsyncEventArgs e = new SocketAsyncEventArgs();
+                e.SetBuffer(new byte[0], 0, 0);
+
+                _socket.Connect(_sendEndpoint);
+                _socket.Send(new byte[0]);
+                Thread.Sleep(500);
 			}
 
 			if (_isDataAccepted)
@@ -50,19 +65,23 @@ namespace BSUIR.NetworkPaint.NetworkCore
 			}
 		}
 
-		public void ReciveCallback(IAsyncResult result)
+        public void ReciveData()
+        {
+            byte[] buffer = new byte[8192];
+
+            EndPoint converted = _endpoint;
+
+            _socket.ReceiveFrom(buffer, ref converted);
+       
+        }
+
+
+		public void ReciveCallback(object sender, SocketAsyncEventArgs e)
 		{
-
-			var listner = (UdpClient)result.AsyncState;
-
-			if (listner == null)
-				return;
-
-			EndPoint ep = (EndPoint)_endpoint;
-
+            
 			byte[] data = new byte[8192];
 
-			data = listner.Receive(ref _endpoint);
+            data = e.Buffer;
 
 			if (data.Length > 0)
 			{
@@ -77,14 +96,7 @@ namespace BSUIR.NetworkPaint.NetworkCore
 
                 _data = CustomXmlSerializer.Deserialize<ServerData>(recivedData);
 
-				_client.EndReceive(result, ref _endpoint);
-
 				_isDataAccepted = true;
-			}
-			else
-			{
-				_client.EndReceive(result, ref _endpoint);
-				_client.BeginReceive(new AsyncCallback(ReciveCallback), _client);
 			}
 
 			
